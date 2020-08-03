@@ -8,9 +8,9 @@ project(etf)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  clever
+  clover
   rospy
-  rosserial_arduino
+  rosserial_python
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES etf
-#  CATKIN_DEPENDS clever rospy rosserial_arduino
+#  CATKIN_DEPENDS clover rospy rosserial_python
 #  DEPENDS system_lib
 )
 
