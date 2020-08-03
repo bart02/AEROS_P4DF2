@@ -1,5 +1,5 @@
 # EasyToFly
-![Лого](https://user-images.githubusercontent.com/19249148/80911710-51fbf680-8d62-11ea-91e2-455aff43c6bd.jpg)
+![Лого](https://user-images.githubusercontent.com/19249148/89198142-edf20400-d5d6-11ea-9a83-c4ec9c989313.png)
 
 ## Информация о команде
 Название команды: EasyToFly
