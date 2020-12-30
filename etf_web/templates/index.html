@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script type="text/javascript"
+            src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <script type="text/javascript" src="/static/ui.js"></script>
+    <script type="text/javascript" src="/static/ros.js"></script>
+    <script type="text/javascript" src="/static/func.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    </script>
+</head>
+<body id="body" style="display: none">
+<button id="acc" class="but" onclick="calibAcc()" disabled>Accelerometer</button>
+<button id="gyro" class="but" onclick="calibGyro()" disabled>Gyro</button>
+<button id="mag" class="but" onclick="calibMag()" disabled>Compass</button>
+<button id="level" class="but" onclick="calibLevel()" disabled>Level Horizon</button>
+
+<progress max="100" value="0" id="progress" style="display: none">
+</progress>
+
+<h2>Log:</h2>
+<div id="log"></div>
+</body>
+</html>
