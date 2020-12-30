@@ -6,7 +6,7 @@ const ros = new ROSLIB.Ros({
 
 ros.on('connection', function () {
     console.log('Connected to websocket server.');
-    document.getElementById('body').style.display = '';
+    calibrationApp.visible = true;
 });
 
 ros.on('error', function (error) {
@@ -29,25 +29,20 @@ listener.subscribe(function (message) {
     if (message.text.includes('[cal]')) {
         console.log(message.text);
         if (message.text.includes('started')) {
-            document.getElementById('progress').style.display = '';
-            document.getElementById('progress').value = 0;
-            document.getElementById('log').innerHTML += '<br>' + "Calibration started";
+            calibrationApp.progressValue = 0;
+            calibrationApp.log += '<br>' + "Calibration started";
         }
 
         if (message.text.includes('calibration done')) {
-            disableButtons(false);
-            document.getElementById('log').innerHTML += '<br>' + "Calibration done";
-            document.getElementById('progress').style.display = 'none';
-        } else {
-            disableButtons(true);
+            calibrationApp.buttonsEnabled = true;
+            calibrationApp.log += '<br>' + "Calibration done";
+            calibrationApp.progressValue = -1;
         }
 
         if (message.text.includes('progress')) {
-            const re = /\d+/;
-            document.getElementById('progress').style.display = '';
-            document.getElementById('progress').value = parseInt(message.text.match(re).toString());
+            calibrationApp.progressValue = parseInt(message.text.match(/\d+/).toString());
         }
-        //document.getElementById('log').innerHTML += '<br>' + message.text;
+        //calibrationApp.log += '<br>' + message.text;
     }
 });
 
@@ -57,11 +52,7 @@ const state = new ROSLIB.Topic({
     messageType: 'mavros_msgs/State'
 });
 state.subscribe(function (message) {
-    if (message.system_status !== 3) {
-        disableButtons(true);
-    } else {
-        disableButtons(false);
-    }
+    calibrationApp.buttonsEnabled = (message.system_status === 3);
 });
 
 

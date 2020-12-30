@@ -1,35 +1,38 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
- <meta charset="UTF-8"></head>
+    <title>Flask-SocketIO Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
 <body>
-  <div id="app">
-    <model-obj 
-        src="http://127.0.0.1:5000/static/1.obj" :rotation="rotation"
-        @on-load="onLoad"></model-obj>
-  </div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-3d-model/dist/vue-3d-model.umd.js"></script>
+
+
+
+<div id="app" v-if="visible">
+    <button :disabled="!buttonsEnabled" onclick="calibAcc()">Accelerometer</button>
+    <button :disabled="!buttonsEnabled" onclick="calibGyro()">Gyro</button>
+    <button :disabled="!buttonsEnabled" onclick="calibMag()">Compass</button>
+    <button :disabled="!buttonsEnabled" onclick="calibLevel()">Level Horizon</button>
+    <progress v-if="progressValue >= 0" max="100" :value="progressValue" :style></progress>
+
+    <h2>Log:</h2>
+    <div id="log">{{ log }}</div>
+</div>
 <script>
-  new Vue({
-            el: '#app',
-            data: {
-                rotation: {
-                    x: -Math.PI / 2,
-                    y: 0,
-                    z: 0
-                },
-                speed: 0
-            },
-            methods: {
-                onLoad () {
-                    this.rotate();
-                },
-                rotate () {
-                    this.rotation.z += this.speed;
-                    requestAnimationFrame( this.rotate );
-                }
-            }
-        })
+    var calibrationApp = new Vue({
+        el: '#app',
+        data: {
+            buttonsEnabled: false,
+            progressValue: -1,
+            log: '',
+            visible: true,
+        }
+    })
 </script>
+<script type="text/javascript"
+    src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+<script type="text/javascript" src="/static/ros.js"></script>
+
 </body>
+</html>
