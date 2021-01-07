@@ -18,6 +18,11 @@
     <h2>Log:</h2>
     <div id="log">{{ log }}</div>
 </div>
+<div id="model">
+    <model-collada
+        src="http://127.0.0.1:5000/static/drone.dae" :rotation="rotation"
+        @on-load="onLoad" :lights="l"></model-collada>
+  </div>
 <script>
     var calibrationApp = new Vue({
         el: '#app',
@@ -33,6 +38,31 @@
     src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 <script type="text/javascript" src="/static/ros.js"></script>
+
+<script src="https://unpkg.com/vue-3d-model/dist/vue-3d-model.umd.js"></script>
+<script>
+  new Vue({
+            el: '#model',
+            data: {
+                rotation: {
+                    x: 0,
+                    y: 0,
+                    z: 1,
+                },
+                speed: 0.01,
+                l: [0]
+            },
+            methods: {
+                onLoad () {
+                    this.rotate();
+                },
+                rotate () {
+                    this.rotation.z += this.speed;
+                    requestAnimationFrame( this.rotate );
+                }
+            }
+        })
+</script>
 
 </body>
 </html>
