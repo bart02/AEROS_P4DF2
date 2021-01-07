@@ -19,9 +19,9 @@
     <div id="log">{{ log }}</div>
 </div>
 <div id="model">
-    <model-collada
-        src="http://127.0.0.1:5000/static/drone.dae" :rotation="rotation"
-        @on-load="onLoad" :lights="l"></model-collada>
+    <model-obj
+        src="/static/text.obj" mtl="/static/text.mtl" :rotation="rotation"
+        @on-load="onLoad"></model-collada>
   </div>
 <script>
     var calibrationApp = new Vue({
@@ -41,7 +41,7 @@
 
 <script src="https://unpkg.com/vue-3d-model/dist/vue-3d-model.umd.js"></script>
 <script>
-  new Vue({
+  var modelApp = new Vue({
             el: '#model',
             data: {
                 rotation: {
@@ -57,7 +57,7 @@
                     this.rotate();
                 },
                 rotate () {
-                    this.rotation.z += this.speed;
+                    this.rotation.x += this.speed;
                     requestAnimationFrame( this.rotate );
                 }
             }
