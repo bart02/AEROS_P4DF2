@@ -41,24 +41,65 @@
 
 <script src="https://unpkg.com/vue-3d-model/dist/vue-3d-model.umd.js"></script>
 <script>
+    let rots = {
+        norm: {
+            x: Math.PI / 2,
+            y: 0,
+            z: 0,
+        },
+        back: {
+            x: -(Math.PI / 2),
+            y: 0,
+            z: 0,
+        },
+        left: {
+            x: Math.PI / 2,
+            y: 0,
+            z: Math.PI / 2 - 0.3,
+        },
+        right: {
+            x: Math.PI / 2,
+            y: 0,
+            z: -(Math.PI / 2 - 0.3),
+        }
+    }
+
+    function rotate(newR) {
+        let oldR = modelApp.rotation;
+        let stages = 100;
+        modelApp.speed = {
+            x: (newR.x - oldR.x) / stages,
+            y: (newR.y - oldR.y) / stages,
+            z: (newR.z - oldR.z) / stages,
+        }
+        modelApp.rot = stages;
+        console.log(modelApp.speed)
+        modelApp.rotate();
+    }
+
   var modelApp = new Vue({
             el: '#model',
             data: {
-                rotation: {
+                rotation: Object.assign({}, rots.norm),
+                speed: {
                     x: 0,
                     y: 0,
-                    z: 1,
+                    z: 0,
                 },
-                speed: 0.01,
-                l: [0]
+                rot: 0,
             },
             methods: {
                 onLoad () {
-                    this.rotate();
+                    //this.rotate();
                 },
                 rotate () {
-                    this.rotation.x += this.speed;
-                    requestAnimationFrame( this.rotate );
+                    this.rotation.x += this.speed.x;
+                    this.rotation.y += this.speed.y;
+                    this.rotation.z += this.speed.z;
+                    if (this.rot > 0) {
+                        this.rot--;
+                        requestAnimationFrame( this.rotate );
+                    }
                 }
             }
         })
