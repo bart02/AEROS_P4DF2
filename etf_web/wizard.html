@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+        crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <style>
+        .nav li a:focus,
+        .nav li a:hover {
+            background: transparent !important;
+        }
+
+        .design-process-section .text-align-center {
+            line-height: 25px;
+            margin-bottom: 12px;
+        }
+
+        .process-model {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            margin: 20px auto 26px;
+            border: none;
+            z-index: 0;
+        }
+
+        .process-model li::after {
+            background: #e5e5e5 none repeat scroll 0 0;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 4px;
+            margin: 0 auto;
+            position: absolute;
+            right: -44%;
+            top: 33px;
+            width: 85%;
+            z-index: -1;
+        }
+
+        .process-model li.visited::after {
+            background: #000000;
+        }
+
+        .process-model li:last-child::after {
+            width: 0;
+        }
+
+        .process-model li {
+            position: relative;
+            display: block;
+            width: 18%;
+            text-align: center;
+            float: none;
+        }
+
+        .nav-tabs.process-model>li.active>a,
+        .nav-tabs.process-model>li.active>a:hover,
+        .nav-tabs.process-model>li.active>a:focus,
+        .process-model li a:hover,
+        .process-model li a:focus {
+            border: none;
+            background: transparent;
+
+        }
+
+        .process-model li a {
+            padding: 0;
+            border: none;
+            outline: none;
+            color: #606060;
+        }
+
+        .process-model li.active,
+        .process-model li.visited {
+            color: #000000;
+        }
+
+        .process-model li.active a,
+        .process-model li.active a:hover,
+        .process-model li.active a:focus,
+        .process-model li.visited a,
+        .process-model li.visited a:hover,
+        .process-model li.visited a:focus {
+            color: #000000 !important;
+        }
+
+        .process-model li.active p,
+        .process-model li.visited p {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .process-model li i {
+            display: block;
+            height: 68px;
+            width: 68px;
+            text-align: center;
+            margin: 0 auto;
+            background: #f5f6f7;
+            border: 2px solid #e5e5e5;
+            line-height: 65px;
+            font-size: 30px;
+            border-radius: 50%;
+        }
+
+        .process-model li.active i,
+        .process-model li.visited i {
+            background: #fff;
+            border-color: #000000;
+        }
+
+        .process-model li p {
+            font-size: 14px;
+            margin-top: 11px;
+        }
+
+
+
+        /* @media screen and (max-width: 560px) {
+  .more-icon-preocess.process-model li span {
+        font-size: 23px;
+        height: 50px;
+        line-height: 46px;
+        width: 50px;
+    }
+    .more-icon-preocess.process-model li::after {
+        top: 24px;
+    }
+}
+@media screen and (max-width: 380px) { 
+    .process-model.more-icon-preocess li {
+        width: 16%;
+    }
+    .more-icon-preocess.process-model li span {
+        font-size: 16px;
+        height: 35px;
+        line-height: 32px;
+        width: 35px;
+    }
+    .more-icon-preocess.process-model li p {
+        font-size: 8px;
+    }
+    .more-icon-preocess.process-model li::after {
+        top: 18px;
+    }
+    .process-model.more-icon-preocess {
+        text-align: center;
+    }
+} */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <b-navbar toggleable="sm" type="dark" variant="dark">
+            <b-navbar-brand class="mx-auto" href="#">Easy To Fly</b-navbar-brand>
+        </b-navbar>
+
+        <b-container>
+            <b-tabs v-model="tabIndex" nav-class="process-model more-icon-preocess" justified>
+                <b-tab :title-item-class="tab[0]" active>
+                    <template #title>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        <p>Firmware</p>
+                    </template>
+                    <p class="p-3">Tab contents 1</p>
+                </b-tab>
+                <b-tab :title-item-class="tab[1]">
+                    <template #title>
+                        <i class="fa fa-compass" aria-hidden="true"></i>
+                        <p>Calibration</p>
+                    </template>
+                    <p class="p-3">Tab contents 2</p>
+                </b-tab>
+                <b-tab :title-item-class="tab[2]" :disabled="!tab[2].includes('enabled')">
+                    <template #title>
+                        <i class="fa fa-gamepad" aria-hidden="true"></i>
+                        <p>Settings</p>
+                    </template>
+                    <p class="p-3">Settings</p>
+                </b-tab>
+            </b-tabs>
+        </b-container>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tabIndex: 0,
+                tab: [
+                    ['active'], [], []
+                ]
+
+            },
+            watch: {
+                tabIndex: function (newVal, oldVal) {
+                    this.tab[oldVal] = ['visited', 'enabled'];
+                    this.tab[newVal] = ['active', 'enabled'];
+                    console.log(newVal, oldVal, this.tab.length, this.tab);
+                    for (let i = newVal + 1; i < this.tab.length; i++) {
+                        console.log(this.tab[i], ('visited' in this.tab[i]));
+                        if (this.tab[i].includes('visited') || this.tab[i].includes('enabled')) this.tab[i] = ['enabled'];
+                        else this.tab[i] = [];
+                    }
+
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
