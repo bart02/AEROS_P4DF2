@@ -37,30 +37,40 @@
 <script type="text/javascript"
     src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-<script type="text/javascript" src="/static/ros.js"></script>
+
 
 <script src="https://unpkg.com/vue-3d-model/dist/vue-3d-model.umd.js"></script>
 <script>
     let rots = {
-        norm: {
-            x: Math.PI / 2,
-            y: 0,
-            z: 0,
-        },
         back: {
-            x: -(Math.PI / 2),
+            x: Math.PI/2,
             y: 0,
             z: 0,
         },
-        left: {
-            x: Math.PI / 2,
+        up: {
+            x: 0.3,
             y: 0,
-            z: Math.PI / 2 - 0.3,
+            z: Math.PI,
         },
         right: {
-            x: Math.PI / 2,
+            x: 0.3,
+            y: -Math.PI / 2,
+            z: -Math.PI /2,
+        },
+        left: {
+            x: 0.3,
+            y: Math.PI /2,
+            z: Math.PI /2,
+        },
+        front: {
+            x: -Math.PI/2,
             y: 0,
-            z: -(Math.PI / 2 - 0.3),
+            z: Math.PI,
+        },
+        down: {
+            x: 0.3,
+            y: 0,
+            z: 0,
         }
     }
 
@@ -80,7 +90,7 @@
   var modelApp = new Vue({
             el: '#model',
             data: {
-                rotation: Object.assign({}, rots.norm),
+                rotation: Object.assign({}, rots.down),
                 speed: {
                     x: 0,
                     y: 0,
@@ -104,6 +114,8 @@
             }
         })
 </script>
+<script type="text/javascript" src="ros.js"></script>
+<script type="text/javascript" src="func.js"></script>
 
 </body>
 </html>

@@ -37,10 +37,20 @@ listener.subscribe(function (message) {
             calibrationApp.buttonsEnabled = true;
             calibrationApp.log += '<br>' + "Calibration done";
             calibrationApp.progressValue = -1;
+            rotate(rots.down);
         }
 
         if (message.text.includes('progress')) {
             calibrationApp.progressValue = parseInt(message.text.match(/\d+/).toString());
+        }
+
+        if (message.text.includes('pending: ')) {
+            let storoni = message.text.split('pending: ')[1].split(' ');
+            if (storoni.includes('down')) rotate(rots.down);
+            else {
+                rotate(rots[storoni[0]]);
+            }
+            console.log(storoni)
         }
         //calibrationApp.log += '<br>' + message.text;
     }
