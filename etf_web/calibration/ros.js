@@ -37,7 +37,7 @@ listener.subscribe(function (message) {
             calibrationApp.buttonsEnabled = true;
             calibrationApp.log += '<br>' + "Calibration done";
             calibrationApp.progressValue = -1;
-            rotate(rots.down);
+            modelApp.rotate(rots.down);
         }
 
         if (message.text.includes('progress')) {
@@ -48,7 +48,7 @@ listener.subscribe(function (message) {
             let storoni = message.text.split('pending: ')[1].split(' ');
             if (storoni.includes('down')) rotate(rots.down);
             else {
-                rotate(rots[storoni[0]]);
+                modelApp.rotate(rots[storoni[0]]);
             }
             console.log(storoni)
         }

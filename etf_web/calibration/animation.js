@@ -44,6 +44,7 @@ let modelApp = new Vue({
         onLoad() {
         },
         rotate(newR) {
+            console.log(newR)
             const stages = 100;
             let oldR = this.rotation;
             this.speed = {
@@ -52,7 +53,7 @@ let modelApp = new Vue({
                 z: (newR.z - oldR.z) / stages,
             }
             this.rot = stages;
-            this.rotate();
+            this.rotate_once();
         },
         rotate_once() {
             this.rotation.x += this.speed.x;
