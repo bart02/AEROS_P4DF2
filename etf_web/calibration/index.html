@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vue-3d-model.umd.js"></script>
+</head>
+
+<body>
+    <div id="app" v-if="visible">
+        <button :disabled="!buttonsEnabled" onclick="calibAcc()">Accelerometer</button>
+        <button :disabled="!buttonsEnabled" onclick="calibGyro()">Gyro</button>
+        <button :disabled="!buttonsEnabled" onclick="calibMag()">Compass</button>
+        <button :disabled="!buttonsEnabled" onclick="calibLevel()">Level Horizon</button>
+        <progress v-if="progressValue >= 0" max="100" :value="progressValue" :style></progress>
+
+        <h2>Log:</h2>
+        <div id="log">{{ log }}</div>
+    </div>
+    <div id="model">
+        <model-obj src="assets/models/coloured/model.obj" mtl="assets/models/coloured/textures.mtl" :rotation="rotation"
+            @on-load="onLoad"></model-obj>
+    </div>
+
+
+    <script>
+        let calibrationApp = new Vue({
+            el: '#app',
+            data: {
+                buttonsEnabled: false,
+                progressValue: -1,
+                log: '',
+                visible: true,
+            }
+        });
+    </script>
+    <script src="assets/js/eventemitter2.min.js"></script>
+    <script src="assets/js/roslib.min.js"></script>
+    <script src="animation.js"></script>
+    <script src="ros.js"></script>
+    <script src="func.js"></script>
+</body>
+
+</html>
