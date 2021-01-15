@@ -1,0 +1,43 @@
+<launch>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="etf_frd" args="0 0 0 0 3.1415 0 base_link laser_frd" />
+
+    <node pkg="pointcloud_to_laserscan" type="laserscan_to_pointcloud_node" name="laserscan_to_pointcloud">
+        <remap from="scan_in" to="/scan"/>
+        <remap from="cloud" to="/etf/cloud"/>
+        <rosparam>
+            target_frame: laser # Leave disabled to output pointcloud in scan frame
+            transform_tolerance: 0.01
+
+            # Concurrency level, affects number of pointclouds queued for processing and number of threads used
+            # 0 : Detect number of cores
+            # 1 : Single threaded
+            # 2->inf : Parallelism level
+            concurrency_level: 1
+        </rosparam>
+    </node>
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+        <remap from="cloud_in" to="/etf/cloud"/>
+        <remap from="scan" to="/mavros/obstacle/send"/>
+        <rosparam>
+            target_frame: laser_frd # Leave disabled to output scan in pointcloud frame
+            transform_tolerance: 0.01
+            min_height: -10.0
+            max_height: 10.0
+
+            # angle_min: -3.12413907051 # -M_PI/2
+            # angle_max: 3.14159274101 # M_PI/2
+            # angle_increment: 0.0174532923847 # M_PI/360.0
+            # scan_time: 0.143622785807
+            # range_min: 0.15000000596
+            # range_max: 12.0
+            # use_inf: true
+            # inf_epsilon: 1.0
+
+            # Concurrency level, affects number of pointclouds queued for processing and number of threads used
+            # 0 : Detect number of cores
+            # 1 : Single threaded
+            # 2->inf : Parallelism level
+            concurrency_level: 1
+        </rosparam>
+    </node>
+</launch>

@@ -6,7 +6,6 @@
         <param name="inverted"            type="bool"   value="false"/>
         <param name="angle_compensate"    type="bool"   value="true"/>
     </node>
-
     <node pkg="tf2_ros" type="static_transform_publisher" name="etf_scan" args="0 0 0 0 0 0 base_link laser" />
+    <include file="$(find etf)/launch/transform.launch" />
 </launch>
-
