@@ -1,9 +1,9 @@
-cd ~/catkin_ws/src
-git clone https://github.com/ros-drivers/rosserial.git
-cd rosserial
-git checkout 0.8.0
-cd ~/catkin_ws
-catkin_make -j1
+# cd ~/catkin_ws/src
+# git clone https://github.com/ros-drivers/rosserial.git
+# cd rosserial
+# git checkout 0.8.0
+# cd ~/catkin_ws
+# catkin_make -j1
 
 cd ~
 mkdir -p ~/Arduino/libraries
