@@ -35,14 +35,14 @@ class Sensors:
 rospy.init_node('etf_scan')
 
 s = Sensors()
-pub = rospy.Publisher('/mavros/obstacle/send', LaserScan)
+pub = rospy.Publisher('/scan', LaserScan)
 
 r = rospy.Rate(10)  # 10hz
 while not rospy.is_shutdown():
     if s.forward is not None and s.backward is not None and s.left is not None and s.right is not None:
         msg = LaserScan()
         msg.header.stamp = rospy.Time.now()
-        msg.header.frame_id = "scan_link"
+        msg.header.frame_id = "laser"
         msg.angle_min = 0.0
         msg.angle_max = 2*pi
         msg.angle_increment = 0.01
