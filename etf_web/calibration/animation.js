@@ -5,30 +5,49 @@ const rots = {
         z: 0,
     },
     up: {
-        x: 0.3,
+        x: Math.PI + 0.3,
         y: 0,
-        z: Math.PI,
+        z: 0,
     },
     right: {
-        x: 0.3,
+        x: Math.PI / 2,
         y: -Math.PI / 2,
-        z: -Math.PI / 2,
+        z: 0,
     },
     left: {
-        x: 0.3,
+        x: Math.PI / 2,
         y: Math.PI / 2,
-        z: Math.PI / 2,
+        z: 0,
     },
     front: {
-        x: -Math.PI / 2,
-        y: 0,
-        z: Math.PI,
+        x: Math.PI / 2,
+        y: Math.PI,
+        z: 0,
     },
     down: {
         x: 0.3,
         y: 0,
         z: 0,
     }
+}
+
+function piiiii(angle) {
+    // if (angle > Math.PI *2) {
+    //     return piiiii(angle - Math.PI *2)
+    // } else if (angle < Math.PI * -2) {
+    //     return piiiii(angle + Math.PI *2)
+    // } else {
+    //     if (angle > Math.PI){
+    //         return angle - 2 * Math.PI;
+    //     }
+    //     else if (angle < -Math.PI){
+    //         return angle + 2 * Math.PI;
+    //     }
+    //     else {
+    //         return angle;
+    //     }
+    // }
+    return angle;
 }
 
 let modelApp = new Vue({
@@ -39,19 +58,21 @@ let modelApp = new Vue({
             x: 0, y: 0, z: 0,
         },
         rot: 0,
+        spinFlag: false,
     },
     methods: {
         onLoad() {
         },
         rotate(newR) {
-            console.log(newR)
             const stages = 100;
+            this.spinFlag = false;
             let oldR = this.rotation;
             this.speed = {
-                x: (newR.x - oldR.x) / stages,
-                y: (newR.y - oldR.y) / stages,
-                z: (newR.z - oldR.z) / stages,
+                x: piiiii(newR.x - oldR.x) / stages,
+                y: piiiii(newR.y - oldR.y) / stages,
+                z: piiiii(newR.z - oldR.z) / stages,
             }
+            console.log(piiiii(newR.x - oldR.x), piiiii(newR.y - oldR.y), piiiii(newR.z - oldR.z));
             this.rot = stages;
             this.rotate_once();
         },
@@ -62,6 +83,19 @@ let modelApp = new Vue({
             if (this.rot > 0) {
                 this.rot--;
                 requestAnimationFrame(this.rotate_once);
+            }
+        },
+        sp(speed) {
+            this.spinFlag = true;
+            this.speed = speed;
+            this.spin();
+        },
+        spin() {
+            this.rotation.x += this.speed.x;
+            this.rotation.y += this.speed.y;
+            this.rotation.z += this.speed.z;
+            if (this.spinFlag) {
+                requestAnimationFrame(this.spin);
             }
         }
     }
