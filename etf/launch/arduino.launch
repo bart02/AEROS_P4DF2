@@ -2,8 +2,8 @@
   <node name="sensors_listener" pkg="rosserial_python" type="serial_node.py" required="false" respawn="true" respawn_delay="5" args="/dev/ttyUSB0">
     <remap from="left" to="/etf/sensors/left"/>
     <remap from="right" to="/etf/sensors/right"/>
-    <remap from="forward" to="/etf/sensors/backward"/>
-    <remap from="backward" to="/etf/sensors/forward"/>
+    <remap from="forward" to="/etf/sensors/forward"/>
+    <remap from="backward" to="/etf/sensors/backward"/>
   </node>
   <node name="obstacle_pub" pkg="etf" type="to_laserscan.py" required="false" respawn="true" respawn_delay="5" />
 
@@ -11,7 +11,7 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="etf_rangefinder_forward" args="0 0 0 0 0 0 base_link etf_forward" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="etf_rangefinder_left" args="0 0 0 1.5707963268 0 0 base_link etf_left" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="etf_rangefinder_right" args="0 0 0 -1.5707963268 0 0 base_link etf_right" />
-  
-  <node pkg="tf2_ros" type="static_transform_publisher" name="etf_scan" args="0 0 0 0 0 0 base_link scan_link" />
-</launch>
 
+  <node pkg="tf2_ros" type="static_transform_publisher" name="etf_scan" args="0 0 0 0 0 0 base_link laser" />
+  <include file="$(find etf)/launch/transform.launch" />
+</launch>
