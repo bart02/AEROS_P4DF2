@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link type="text/css" rel="stylesheet" href="progresstabs.css" />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
+        crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <b-navbar toggleable="sm" type="dark" variant="dark">
+            <b-navbar-brand class="mx-auto" href="#">Easy To Fly</b-navbar-brand>
+        </b-navbar>
+
+        <b-container>
+            <b-tabs v-model="tabIndex" nav-class="process-model more-icon-preocess" justified>
+                <b-tab :title-item-class="tab[0]" active>
+                    <template #title>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        <p>Firmware</p>
+                    </template>
+                    <p class="p-3">Tab contents 1</p>
+                </b-tab>
+                <b-tab :title-item-class="tab[1]">
+                    <template #title>
+                        <i class="fa fa-compass" aria-hidden="true"></i>
+                        <p>Calibration</p>
+                    </template>
+                    <p class="p-3">Tab contents 2</p>
+                </b-tab>
+                <b-tab :title-item-class="tab[2]" :disabled="!tab[2].includes('enabled')">
+                    <template #title>
+                        <i class="fa fa-gamepad" aria-hidden="true"></i>
+                        <p>Settings</p>
+                    </template>
+                    <p class="p-3">Settings</p>
+                </b-tab>
+            </b-tabs>
+        </b-container>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tabIndex: 0,
+                tab: [
+                    ['active'], [], []
+                ]
+
+            },
+            watch: {
+                tabIndex: function (newVal, oldVal) {
+                    this.tab[oldVal] = ['visited', 'enabled'];
+                    this.tab[newVal] = ['active', 'enabled'];
+                    console.log(newVal, oldVal, this.tab.length, this.tab);
+                    for (let i = newVal + 1; i < this.tab.length; i++) {
+                        console.log(this.tab[i], ('visited' in this.tab[i]));
+                        if (this.tab[i].includes('visited') || this.tab[i].includes('enabled')) this.tab[i] = ['enabled'];
+                        else this.tab[i] = [];
+                    }
+
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
