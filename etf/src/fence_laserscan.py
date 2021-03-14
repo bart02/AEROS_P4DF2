@@ -23,8 +23,10 @@ class Sensors:
 
 
 def callb(m):
+
     global pos
-    if m.mode == "POSITION":
+    print m.mode
+    if m.mode == "POSCTL":
         pos = True
 
 
@@ -32,11 +34,12 @@ rospy.init_node('etf_scan')
 
 s = Sensors(1.5, 1.5, 1.5, 1.5)
 pub = rospy.Publisher('/scan', LaserScan)
-rospy.Subscriber('/mavros/state', Range, callb)
+rospy.Subscriber('/mavros/state', State, callb)
 
 r = rospy.Rate(10)  # 10hz
 while not rospy.is_shutdown():
     if s.forward is not None and s.backward is not None and s.left is not None and s.right is not None and pos:
+        print "POS"
         msg = LaserScan()
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = "fence_center"
