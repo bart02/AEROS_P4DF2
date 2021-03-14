@@ -3,8 +3,10 @@ import rospy
 from sensor_msgs.msg import Range, LaserScan
 from math import sqrt, tan, sin, cos, atan2, pi, acos
 from numpy import arange
+from mavros_msgs.msg import State
 
 pi_2 = pi/2
+pos = False
 
 
 class Sensors:
@@ -20,14 +22,21 @@ class Sensors:
         self.backward = backward
 
 
+def callb(m):
+    global pos
+    if m.mode == "POSITION":
+        pos = True
+
+
 rospy.init_node('etf_scan')
 
 s = Sensors(1.5, 1.5, 1.5, 1.5)
 pub = rospy.Publisher('/scan', LaserScan)
+rospy.Subscriber('/mavros/state', Range, callb)
 
 r = rospy.Rate(10)  # 10hz
 while not rospy.is_shutdown():
-    if s.forward is not None and s.backward is not None and s.left is not None and s.right is not None:
+    if s.forward is not None and s.backward is not None and s.left is not None and s.right is not None and pos:
         msg = LaserScan()
         msg.header.stamp = rospy.Time.now()
         msg.header.frame_id = "fence_center"
