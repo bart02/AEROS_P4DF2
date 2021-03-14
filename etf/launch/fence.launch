@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="etf_scan" args="1.5 1.5 0 0 0 0 aruco_map_detected fence_center" />
+
+    <node name="fence_laserscan" pkg="etf" type="fence_laserscan.py" required="false" respawn="true" respawn_delay="5" />
+
+    <include file="$(find etf)/launch/transform.launch" />
+</launch>
