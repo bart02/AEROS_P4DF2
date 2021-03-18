@@ -5,7 +5,7 @@
         <remap from="scan_in" to="/scan"/>
         <remap from="cloud" to="/etf/cloud"/>
         <rosparam>
-            target_frame: laser # Leave disabled to output pointcloud in scan frame
+            target_frame: base_link # Leave disabled to output pointcloud in scan frame
             transform_tolerance: 0.01
 
             # Concurrency level, affects number of pointclouds queued for processing and number of threads used
